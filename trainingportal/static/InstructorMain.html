@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Coding Dojo</title>
+
+<script src="public/jquery/dist/jquery.min.js"></script>
+<script src="public/angular/angular.min.js"></script>
+<script src="public/angular-route/angular-route.min.js"></script>
+<script src="public/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="public/highlightjs/highlight.pack.min.js"></script>
+
+<script src="static/main-app.js"></script>
+<script src="static/dataSvc.js"></script>
+
+<script src="static/challengesCtrl.js"></script>
+<script src="static/leaderboardCtrl.js"></script>
+<script src="static/submitCodeCtrl.js"></script>
+<script src="static/codeBlocksCtrl.js"></script>
+<script src="static/activityCtrl.js"></script>
+<script src="static/dashboardCtrl.js"></script>
+<script src="static/reportCtrl.js"></script>
+<script src="static/solutionCtrl.js"></script>
+<script src="static/trainingModulesCtrl.js"></script>
+
+<link href="/public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/public/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
+<link href="public/highlightjs/styles/darkula.css" rel="stylesheet">
+<script>
+    window.localStorage.setItem('XSRF_TOKEN','%XSRF_TOKEN%');
+    window.getAjaxOpts = function(){
+       var opts =  {
+           headers:{
+               "xsrfToken":window.localStorage.getItem("XSRF_TOKEN")
+           }
+       }
+       return opts;
+    }
+</script>
+
+
+</head>
+<body>
+
+    <div ng-app="challengesApp" ng-controller="mainCtrl">
+        
+        <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+            <a class="navbar-brand" href="#!">Secure Coding Dojo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="navbar-item" ng-class="{ active: isActive('/')}"><a class="nav-link" href="#!">Lessons</a></li>
+                    <li class="navbar-item" ng-class="{ active: isActive('/codeBlocks')}"><a class="nav-link" href="#!codeBlocks/inputAllowListing">Code Blocks</a></li>
+                    <li class="navbar-item" ng-class="{ active: isActive('/leaderboard')}"><a class="nav-link" href="#!leaderboard">Leaderboard</a></li>
+                    <li class="navbar-item" ng-class="{ active: isActive('/activity')}"><a class="nav-link" href="#!activity">Activity</a></li>
+                    <li class="navbar-item" ng-class="{ active: isActive('/dashboard')}"><a class="nav-link"href="#!dashboard">Dashboard</a></li>
+                    <li class="navbar-item" ng-class="{ active: isActive('/report')}"><a class="nav-link" href="#!report">Report</a></li>
+                </ul>
+            
+                <ul class="navbar-nav">
+                    <li class="navbar-item"><a class="nav-link" href="" data-toggle="modal" data-target="#teamModal">My Team</a></li>
+                    <li class="navbar-item" ng-if="user.accountId.indexOf('Local_')===0"><a class="nav-link" href="" data-toggle="modal" data-target="#profileModal">My Profile</a></li>
+                    <li class="navbar-item"><a class="nav-link" href="/logout"><span class="oi oi-account-logout"></span> Logout {{fullName}}</a></li>
+                </ul>
+            </div>
+        </nav>
+            
+
+
+<h1>
+    <table class="table" style="
+    font-size: 15px;
+">
+        <thead>
+          <tr id="q">
+            <th scope="col">Challenge Name</th>
+            <th scope="col">disable solution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="cwe306">
+            <td>Yellow Belt : Missing Authentication for Critical Function</td>
+            <td><div class="form-check">
+                <input name= "cwe306" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div>
+              </td>
+          </tr>
+          <tr id="cwe807">
+            <td>Yellow Belt : Reliance on Untrusted Inputs in a Security Decision</td>
+            <td><div class="form-check">
+                <input name= "cwe807" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe862">
+            <td>Yellow Belt : Missing Authorization</td>
+            <td><div class="form-check">
+                <input name= "cwe862" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe311">
+            <td>Orange Belt : Missing Encryption of Sensitive Data</td>
+            <td><div class="form-check">
+                <input name= "cwe311" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe327">
+            <td>Orange Belt : Use of a Broken or Risky Cryptographic Algorithm</td>
+            <td><div class="form-check">
+                <input name= "cwe327" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe307">
+            <td>Green Belt : Password Guessing Attack</td>
+            <td><div class="form-check">
+                <input name= "cwe307" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe190">
+            <td>Green Belt : Integer Overflow or Wraparound</td>
+            <td><div class="form-check">
+                <input name= "cwe190" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe494">
+            <td>Green Belt : Download of Code Without Integrity Check</td>
+            <td><div class="form-check">
+                <input name= "cwe494" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe601">
+            <td>Purple Belt : URL Redirection to Untrusted Site ('Open Redirect')</td>
+            <td><div class="form-check">
+                <input name= "cwe601" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+          <tr id="cwe79">
+            <td>Purple Belt : Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') and related flaws</td>
+            <td><div class="form-check">
+                <input name= "cwe79" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr> 
+                <tr id="cwe352">
+        <td>Purple Belt : Cross-Site Request Forgery (CSRF)</td>
+        <td><div class="form-check">
+            <input name= "cwe352" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            </div></td>
+        </tr>
+        <tr id="cwe434">
+            <td>Blue Belt : Unrestricted Upload of File with Dangerous Type</td>
+            <td><div class="form-check">
+                <input name= "cwe434" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              </div></td>
+          </tr>
+        </tbody>
+      </table>
+      
+</h1>
+<script>
+
+    var done=false;
+    console.log($("tbody tr"))
+    $.post( "/getremoved", window.getAjaxOpts())
+  .done(function( data ) {
+    // qq=data;
+    for (const element of data) {
+//   console.log(element);
+$('input[name='+element.Challenge_ID
++']').attr('checked', true);
+        
+
+}
+done=true;
+  });
+  $('input').click(function() {
+    $.post( "/removedsolution",{challenge:this.name}, window.getAjaxOpts())
+  .done(function( data ) {
+
+  });
+
+
+});
+</script>
+</body>
+</html>
